@@ -20,8 +20,12 @@ public class  Myge<T extends Manager> {
 //    }
 
     public static void main(String[] args) {
-        Myge<Manager> employeeMyge = new Myge<>();
-        employeeMyge.setList(new Manager());
+        Manager manager = new Manager();
+        Class<?> superclass = manager.getClass().getSuperclass();
+        while (superclass != null) {
+            System.out.println(superclass);
+            superclass = superclass.getSuperclass();
+        }
     }
 }
 
