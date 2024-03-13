@@ -9,6 +9,7 @@ public class Parent {
     public Parent() {
         System.out.println("构造函数执行了");
         this.list = list;
+        System.out.println("aaa");
     }
 
     public List<Integer> getList() {
