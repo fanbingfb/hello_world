@@ -7,39 +7,31 @@ import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.Random;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 
 public class Test {
     public static final Logger LOGGER = Logger.getLogger("com.mylog");
-    public static void main(String[] args) throws FileNotFoundException {
-        Random random = new Random() {
-            @Override
-            public double nextDouble() {
-                double nexted = super.nextDouble();
-                LOGGER.info("double");
-                return nexted;
-            }
-        };
-        random.nextDouble();
-//        Animal animal = (Animal) Proxy.newProxyInstance(Test.class.getClassLoader(),
-//                new Class[]{Animal.class},
-//                new InvocationHandler() {
-//                    @Override
-//                    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
-//                        System.out.println(method.getName());
-//                        if (args != null) {
-//                            Stream<Object> stream = Arrays.stream(args);
-//                            stream.forEach(System.out::println);
-//                        }
-//                        return method.invoke(new dog(),args);
-//                    }
-//                });
-//        animal.drink(18);
-//        System.out.println("这是一个分界线");
-//        animal.eat("站着");
-//        System.in.read();
+    public static void main(String[] args) throws IOException {
+        Animal animal = (Animal) Proxy.newProxyInstance(Test.class.getClassLoader(),
+                new Class[]{Animal.class},
+                new InvocationHandler() {
+                    @Override
+                    public Object invoke(Object proxy, Method method, Object[] args) throws Throwable {
+                        System.out.println(method.getName());
+                        if (args != null) {
+                            Stream<Object> stream = Arrays.stream(args);
+                            stream.forEach(System.out::println);
+                        }
+                        return method.invoke(new dog(),args);
+                    }
+                });
+        animal.drink(18);
+        System.out.println("这是一个分界线");
+        animal.eat("站着");
+        System.in.read();
     }
 }
 interface Animal{
